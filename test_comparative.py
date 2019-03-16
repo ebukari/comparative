@@ -50,37 +50,57 @@ class TestComparisons(unittest.TestCase):
         self.clock3 = ComparableClock(8, 1, 0)
         self.clock1_dup = ComparableClock(8, 0, 0)
 
+    # Less than
     def test_lt_returns_false_if_objs_are_equal(self):
         self.assertFalse(self.clock1 < self.clock1_dup)
 
-    def test_lt_returns_false_if_obj1_gt_obj2(self):
+    def test_lt_returns_false_if_object1_gt_object2(self):
         self.assertFalse(self.clock3 < self.clock2)
         self.assertFalse(self.clock2 < self.clock1)
 
-    def test_lt_returns_true_if_obj1_lt_obj2(self):
+    def test_lt_returns_true_if_object1_lt_object2(self):
         self.assertTrue(self.clock1 < self.clock2,
                 "{} should be less than {}".format(self.clock1, self.clock2))
 
-    def test_ne_returns_true_if_obj1_gt_obj2(self):
+    # Less than or equal
+    def test_le_returns_false_if_object1_gt_object2(self):
+        self.assertFalse(self.clock3 <= self.clock2)
+
+    def test_le_returns_true_if_objects_are_equal(self):
+        self.assertTrue(self.clock1 <= self.clock1_dup)
+
+    def test_le_returns_true_if_objects_are_the_same(self):
+        self.assertTrue(self.clock1 <= self.clock1_dup)
+
+    def test_le_returns_true_if_object1_lt_object2(self):
+        self.assertTrue(self.clock1 <= self.clock3)
+        self.assertTrue(self.clock1 <= self.clock2)
+        self.assertTrue(self.clock2 <= self.clock3)
+
+    # Not Equal
+    def test_ne_returns_true_if_object1_gt_object2(self):
         self.assertNotEqual(self.clock2, self.clock1)
 
-    def test_ne_returns_true_if_obj1_lt_obj2(self):
+    def test_ne_returns_true_if_object1_lt_object2(self):
         self.assertNotEqual(self.clock1, self.clock2)
 
     def test_ne_returns_false_if_clocks_are_equal(self):
         self.assertFalse(self.clock1 != self.clock1_dup)
 
+    # Equal
     def test_eq_returns_true_if_clocks_are_equal(self):
         self.assertEqual(self.clock1, self.clock1_dup,
                 msg="equal clocks did not compare as equal")
 
-    def test_eq_returns_false_if_clocks_are_not_equal(self):
+    def test_eq_returns_false_if_object1_gt_object2(self):
+        self.assertNotEqual(self.clock3, self.clock2)
+        self.assertNotEqual(self.clock2, self.clock1)
+        self.assertNotEqual(self.clock3, self.clock1)
+
+    def test_eq_returns_false_if_object1_lt_object2(self):
         self.assertNotEqual(self.clock1, self.clock3)
         self.assertNotEqual(self.clock1, self.clock2)
-        self.assertNotEqual(self.clock3, self.clock2)
-
-    def test_le_returns_false_if_obj1_gt_obj2(self):
-        self.assertFalse(self.clock3 <= self.clock2)
+        self.assertNotEqual(self.clock2, self.clock3)
 
 
 if __name__ == "__main__":

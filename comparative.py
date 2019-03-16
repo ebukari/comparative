@@ -10,13 +10,9 @@ def comparison_factory(op_name, strict, *attrs):
         comparable_attrs = operator.attrgetter(*attrs)
 
         def comparison(self, other):
-            # LOGGER.debug("Calling {} with {} and {}"
-            #         .format(op_name, self, other))
             if strict and not isinstance(other, type(self)):
                 return NotImplemented
             op_fn = getattr(operator, op_name)
-            # LOGGER.debug("Comparison tuples: {}, {}"
-            #         .format(comparable_attrs(self), comparable_attrs(other)))
             return op_fn(comparable_attrs(self), comparable_attrs(other))
         return comparison
 
@@ -48,6 +44,6 @@ if __name__ == "__main__":
 
     clock1 = Clock(12, 0)
     clock2 = Clock(12, 1)
-    print(clock1 < clock2)
-    print(clock1 <= clock2)
-    print(clock1 != clock2)
+    print("clock1 < clock2", clock1 < clock2)
+    print("clock1 <= clock2", clock1 <= clock2)
+    print("clock1 != clock2", clock1 != clock2)
